@@ -1,0 +1,20 @@
+FROM php:7.4.14-fpm
+
+RUN apt-get update && apt-get install -y \
+      git \
+      libicu-dev \
+      libpq-dev \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+WORKDIR /var/www
+
+#RUN curl -sS https://get.symfony.com/cli/installer | bash
+
+RUN curl -sS https://getcomposer.org/installer | php
+
+RUN mv composer.phar /usr/local/bin/composer
+
+CMD ["php-fpm"]
+
+EXPOSE 9000
