@@ -1,13 +1,13 @@
 <?php 
 
-namespace App\Providers\Expanses\Providers;
+namespace App\Http\Controllers\Expanses\Providers;
 
-use Domain\Expanses\DataProvider\ExpanseDataProvider;
+use Domain\Expanses\DataProviders\ExpansesDataProvider;
 use Domain\Expanses\Entities\ExpanseEntity;
 
-class ExpanseProvider implements ExpanseDataProvider {
+class ExpanseProvider extends ExpansesDataProvider {
 
-    public function find(int $id){
+    public function find(?int $id){
         return [
             new ExpanseEntity(1,'saldo', 2.40, 'frete', 'frequente', '17/08/2019')
         ];

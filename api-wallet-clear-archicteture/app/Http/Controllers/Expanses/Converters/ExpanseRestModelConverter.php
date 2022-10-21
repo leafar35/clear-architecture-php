@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Expanses\Converters;
 
-use App\Http\Controllers\Expanses\Restmodels\ExpanseRestModel;
 use Domain\Expanses\Entities\ExpanseEntity;
+use stdClass;
 
 class ExpanseRestModelConverter {
 
-    public function mapToEntity(ExpanseRestModel $restmodel) : ExpanseEntity {
+    public function mapToEntity(stdClass $restmodel) : ExpanseEntity {
         return new ExpanseEntity(
-            $restmodel->id,
+            null,
             $restmodel->description,
             $restmodel->amount,
             $restmodel->type,
@@ -18,15 +18,5 @@ class ExpanseRestModelConverter {
         );
     }
 
-    public function mapToModel(ExpanseEntity $entity) : ExpanseRestModel {
-        return new ExpanseRestModel(
-            $entity->id,
-            $entity->description,
-            $entity->amount,
-            $entity->type,
-            $entity->frequency,
-            $entity->date
-        );
-    }
 
 }

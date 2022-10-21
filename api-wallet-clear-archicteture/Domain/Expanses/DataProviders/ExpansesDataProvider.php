@@ -6,7 +6,7 @@ use Domain\Expanses\Entities\ExpanseEntity;
 
 abstract class ExpansesDataProvider {
 
-    abstract public function find(int $id);
+    abstract public function find(?int $id);
     
     abstract public function create(ExpanseEntity $entity): ExpanseEntity;
 

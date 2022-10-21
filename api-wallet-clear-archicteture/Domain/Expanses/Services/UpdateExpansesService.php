@@ -3,15 +3,15 @@
 namespace Domain\Expanses\Services;
 
 use Domain\Expanses\Entities\ExpanseEntity;
-use DOmain\Expanses\UseCases\UpdateExpansesUseCase;
-use Domain\Expanses\DataProvider\ExpanseDataProvider;
+use Domain\Expanses\UseCases\UpdateExpansesUseCase;
+use Domain\Expanses\DataProviders\ExpansesDataProvider;
 
-class UpdateExpansesService implements UpdateExpansesUseCase {
+class UpdateExpansesService extends UpdateExpansesUseCase {
 
     private $provider;
 
     public function __construct(
-        ExpanseDataProvider $provider
+        ExpansesDataProvider $provider
     ){
         $this->provider = $provider;
     }

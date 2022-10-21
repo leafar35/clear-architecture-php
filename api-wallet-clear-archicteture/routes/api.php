@@ -18,4 +18,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('expanses/{id}', 'App\Http\Controllers\Expanses\ExpanseController@findAll');
+Route::prefix('expanses')->group(function() {
+
+    Route::get('/{id}', 'App\Http\Controllers\Expanses\ExpanseController@findAll');
+    Route::post('/', 'App\Http\Controllers\Expanses\ExpanseController@create');
+    Route::put('/', 'App\Http\Controllers\Expanses\ExpanseController@update');
+    Route::delete('/{id}', 'App\Http\Controllers\Expanses\ExpanseController@delete');
+
+});

@@ -4,17 +4,15 @@ namespace App\Http\Controllers\Expanses\Restmodels;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ExpanseRestModel extends FormRequest {
+class CreateExpanseRestModel extends FormRequest {
 
-    public ?int $id;
     public ?string $description;
     public ?float $amount;
     public ?string $type;
     public ?string $frequency;
     public ?string $date;
 
-    public function __construct(?int $id = null, ?string $description = null, ?float $amount = null, ?string $type = null, ?string $frequency = null, ?string $date = null) {
-        $this->id = $id;
+    public function __construct(?string $description = null, ?float $amount = null, ?string $type = null, ?string $frequency = null, ?string $date = null) {
         $this->description = $description;;
         $this->amount = $amount;
         $this->type = $type;

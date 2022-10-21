@@ -2,15 +2,15 @@
 
 namespace Domain\Expanses\Services;
 
-use Domain\Expanses\DataProvider\ExpanseDataProvider;
-use DOmain\Expanses\UseCases\DeleteExpansesUseCase;
+use Domain\Expanses\DataProviders\ExpansesDataProvider;
+use Domain\Expanses\UseCases\DeleteExpansesUseCase;
 
-class DeleteExpansesService implements DeleteExpansesUseCase {
+class DeleteExpansesService extends DeleteExpansesUseCase {
 
     private $provider;
 
     public function __construct(
-        ExpanseDataProvider $provider
+        ExpansesDataProvider $provider
     ){
         $this->provider = $provider;
     }

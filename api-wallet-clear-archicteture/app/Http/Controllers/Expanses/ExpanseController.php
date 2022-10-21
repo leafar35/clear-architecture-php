@@ -6,33 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Expanses\Converters\ExpanseRestModelConverter;
 use App\Http\Controllers\Expanses\Restmodels\ExpanseRestModel;
 use App\Http\Controllers\Expanses\Resources\ExpansesResource;
+use App\Http\Controllers\Expanses\Restmodels\CreateExpanseRestModel;
 use Domain\Expanses\UseCases\CreateExpansesUseCase;
 use Domain\Expanses\UseCases\DeleteExpansesUseCase;
 use Domain\Expanses\UseCases\FindExpansesUseCase;
 use Domain\Expanses\UseCases\UpdateExpansesUseCase;
+use Illuminate\Http\JsonResponse;
 
 class ExpanseController extends Controller implements ExpansesResource {
  
     private FindExpansesUseCase $findusecase;
-    /*
     private CreateExpansesUseCase $createusecase;
     private UpdateExpansesUseCase $updateusecase;
     private DeleteExpansesUseCase $deleteusecase;
     private ExpanseRestModelConverter $converter;
-    */
 
-    private function __construct(
-        FindExpansesUseCase $findusecase
-        //CreateExpansesUseCase $createusecase,
-        //UpdateExpansesUseCase $updateusecase,
-        //DeleteExpansesUseCase $deleteusecase,
-        //ExpanseRestModelConverter $converter
+    public function __construct(
+        FindExpansesUseCase $findusecase,
+        CreateExpansesUseCase $createusecase,
+        UpdateExpansesUseCase $updateusecase,
+        DeleteExpansesUseCase $deleteusecase,
+        ExpanseRestModelConverter $converter
     ) {
         $this->findusecase = $findusecase;
-        //$this->createusecase = $createusecase;
-        //$this->updateusecase = $updateusecase;
-        //$this->deleteusecase = $deleteusecase;
-        //$this->converter = $converter;;
+        $this->createusecase = $createusecase;
+        $this->updateusecase = $updateusecase;
+        $this->deleteusecase = $deleteusecase;
+        $this->converter = $converter;
     }
 
 
@@ -54,23 +54,22 @@ class ExpanseController extends Controller implements ExpansesResource {
         }
     }
 
-    public function create(ExpanseRestModel $restmodel): ExpanseRestModel{
+    public function create(CreateExpanseRestModel $restmodel): JsonResponse {
         try{
-            $entity = $this->converter->mapToEntity($restmodel);
+            $entity = $this->converter->mapToEntity((object)$restmodel->toArray());
             $data = $this->createusecase->execute($entity);
-            $restmodel = $this->converter->mapToModel($data);
-            return $restmodel;
+            return response()->json((array)$data, 200);
         }catch(\Exception $e){
+            dd($e->getMessage());
             return $e->getMessage();
         }
     }
 
-    public function update(int $id, ExpanseRestModel $restmodel): ExpanseRestModel{
+    public function update(ExpanseRestModel $restmodel): JsonResponse {
         try{
-            $entity = $this->converter->mapToEntity($restmodel);
+            $entity = $this->converter->mapToEntity((object)$restmodel->toArray());
             $data = $this->updateusecase->execute($entity);
-            $restmodel = $this->converter->mapToModel($data);
-            return $restmodel;
+            return response()->json((array)$data, 200);
         }catch(\Exception $e){
             return $e->getMessage();
         }

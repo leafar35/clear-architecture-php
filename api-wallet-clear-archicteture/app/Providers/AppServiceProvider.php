@@ -2,12 +2,17 @@
 
 namespace App\Providers;
 
-use App\Http\Controllers\Expanses\ExpanseController;
-use App\Http\Controllers\Expanses\Resources\ExpansesResource;
-use App\Providers\Expanses\Providers\ExpanseProvider;
-use Domain\Expanses\Services\FindExpanseService;
-use Domain\Expanses\UseCases\FindExpansesUseCase;
 use Illuminate\Support\ServiceProvider;
+use Domain\Expanses\Services\FindExpansesService;
+use Domain\Expanses\UseCases\FindExpansesUseCase;
+use Domain\Expanses\DataProviders\ExpansesDataProvider;
+use Domain\Expanses\Services\CreateExpansesService;
+use Domain\Expanses\Services\DeleteExpansesService;
+use Domain\Expanses\Services\UpdateExpansesService;
+use Domain\Expanses\UseCases\CreateExpansesUseCase;
+use Domain\Expanses\UseCases\DeleteExpansesUseCase;
+use Domain\Expanses\UseCases\UpdateExpansesUseCase;
+use App\Http\Controllers\Expanses\Providers\ExpanseProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,13 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
-        var_dump('ntrou aqui', $this);
-        $this->app->bind(
-            FindExpansesUseCase::class,
-            FindExpanseService::class,
-        );        
-
+        $this->app->bind(FindExpansesUseCase::class, FindExpansesService::class);
+        $this->app->bind(CreateExpansesUseCase::class, CreateExpansesService::class);
+        $this->app->bind(UpdateExpansesUseCase::class, UpdateExpansesService::class);
+        $this->app->bind(DeleteExpansesUseCase::class, DeleteExpansesService::class);
+        $this->app->bind(ExpansesDataProvider::class, ExpanseProvider::class);
     }
 
     /**
