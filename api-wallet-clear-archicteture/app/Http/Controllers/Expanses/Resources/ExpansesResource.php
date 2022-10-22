@@ -10,12 +10,12 @@ interface ExpansesResource {
 
     public function findAll();
 
-    public function findOne(int $id): ExpanseRestModel;
+    public function findOne(int $id): JsonResponse;
 
     public function create(CreateExpanseRestModel $restmodel): JsonResponse;
 
     public function update(ExpanseRestModel $restmodel): JsonResponse;
 
-    public function delete(int $id): bool;
+    public function delete(int $id): JsonResponse;
   
 }

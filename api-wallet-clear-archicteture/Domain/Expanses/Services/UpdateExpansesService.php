@@ -18,7 +18,7 @@ class UpdateExpansesService extends UpdateExpansesUseCase {
 
     public function execute(ExpanseEntity $entity): ExpanseEntity {
         try{
-            $response = $this->provider->create($entity);
+            $response = $this->provider->Update($entity);
             return $response;
         }catch(\Exception $e){
             return $e->getMessage();

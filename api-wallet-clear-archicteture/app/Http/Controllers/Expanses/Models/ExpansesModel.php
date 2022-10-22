@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers\Expanses\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class expanses extends Model
+class ExpansesModel extends Model
 {
     use HasFactory;
 }

@@ -35,20 +35,19 @@ class ExpanseController extends Controller implements ExpansesResource {
         $this->converter = $converter;
     }
 
-
     public function findAll(){
         try{
             $response = $this->findusecase->execute(null);
-            return $response;
+            return response()->json((array)$response, 200);
         }catch(\Exception $e){
             return $e->getMessage();
         }
     }
 
-    public function findOne(int $id): ExpanseRestModel{
+    public function findOne(int $id): JsonResponse{
         try{
-            $response = $this->findusecase->execute(1);
-            return $response;
+            $response = $this->findusecase->execute($id);
+            return response()->json($response, 200);
         }catch(\Exception $e){
             return $e->getMessage();
         }
@@ -56,29 +55,28 @@ class ExpanseController extends Controller implements ExpansesResource {
 
     public function create(CreateExpanseRestModel $restmodel): JsonResponse {
         try{
-            $entity = $this->converter->mapToEntity((object)$restmodel->toArray());
+            $entity = $this->converter->mapToEntityCreate((object)$restmodel->toArray());
             $data = $this->createusecase->execute($entity);
             return response()->json((array)$data, 200);
         }catch(\Exception $e){
-            dd($e->getMessage());
-            return $e->getMessage();
+            return response()->json($e->getMessage(), 200);
         }
     }
 
     public function update(ExpanseRestModel $restmodel): JsonResponse {
         try{
-            $entity = $this->converter->mapToEntity((object)$restmodel->toArray());
+            $entity = $this->converter->mapToEntityUpdate((object)$restmodel->toArray());
             $data = $this->updateusecase->execute($entity);
             return response()->json((array)$data, 200);
         }catch(\Exception $e){
-            return $e->getMessage();
+            return response()->json($e->getMessage(), 200);
         }
     }
 
-    public function delete(int $id): bool{
+    public function delete(int $id): JsonResponse {
         try{
             $data = $this->deleteusecase->execute($id);
-            return $data;
+            return response()->json($data, 200);
         }catch(\Exception $e){
             return $e->getMessage();
         }
