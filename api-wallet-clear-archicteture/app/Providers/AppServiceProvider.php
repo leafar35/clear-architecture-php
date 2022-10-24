@@ -12,7 +12,15 @@ use Domain\Expanses\Services\UpdateExpansesService;
 use Domain\Expanses\UseCases\CreateExpansesUseCase;
 use Domain\Expanses\UseCases\DeleteExpansesUseCase;
 use Domain\Expanses\UseCases\UpdateExpansesUseCase;
-use App\Http\Controllers\Expanses\Providers\ExpanseProvider;
+use Application\Expanses\Providers\ExpanseProvider;
+use Application\System\Providers\UserProvider;
+use Domain\System\DataProviders\UserDataProvider;
+use Domain\System\Services\CreateUserService;
+use Domain\System\Services\GetUserService;
+use Domain\System\Services\UpdateUserService;
+use Domain\System\UseCases\CreateUserUseCase;
+use Domain\System\UseCases\GetUserUseCase;
+use Domain\System\UseCases\UpdateUserUseCase;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +36,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UpdateExpansesUseCase::class, UpdateExpansesService::class);
         $this->app->bind(DeleteExpansesUseCase::class, DeleteExpansesService::class);
         $this->app->bind(ExpansesDataProvider::class, ExpanseProvider::class);
+
+        $this->app->bind(GetUserUseCase::class, GetUserService::class);
+        $this->app->bind(CreateUserUseCase::class, CreateUserService::class);
+        $this->app->bind(UpdateUserUseCase::class, UpdateUserService::class);
+        $this->app->bind(UserDataProvider::class, UserProvider::class);
     }
 
     /**
